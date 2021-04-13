@@ -1,6 +1,10 @@
 import React from 'react';
 import reactDom from 'react-dom';
 import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
+import spinner from './spinner';
+import Spinner from './spinner';
+
 
 
 // How this works: -
@@ -15,33 +19,35 @@ class App extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {lat:null,errorMessage : ''};
+      }
 
+ state ={lat:null, errorMessage:''};
+
+ componentDidMount(){
         window.navigator.geolocation.getCurrentPosition(
-            position =>{
-                this.setState({lat:position.coords.latitude}); //callback function
-            },
-            err =>{
-                this.setState({errorMessage:err.message})
-            }
+            position =>this.setState({lat:position.coords.latitude}), //callback function
+            err =>this.setState({errorMessage:err.message})
         );
+    }
+   
+//Hlper function
 
+renderComponent(){
+    if((this.state.lat)&& (!this.state.errorMessage)){
+        return <SeasonDisplay lat = {this.state.lat} />;
+         }
+     if((!this.state.lat) && (this.state.errorMessage)){
+               return <div> Message :{this.state.errorMessage}</div>
+         }
+     return <Spinner message = "Please accept the request..."/>
+    }
+
+    render(){
+        return <div className ="border red">{this.renderComponent()}</div>
     }
     
-    render(){
-           if((this.state.lat)&& (!this.state.errorMessage)){
-                return <div> lat:{this.state.lat}</div>
-            }
-            if((!this.state.lat) && (this.state.errorMessage)){
-               return <div> Message :{this.state.errorMessage}</div>
-            }
-
-            if((!this.state.lat) && (!this.state.errorMessage)){
-                return <div>Loading..</div>
-            }
-        
-    }
 }
+
 
 reactDom.render(
     <App />,
