@@ -1,3 +1,7 @@
+**Application Summary**
+
+Depending on users location, app fetches the latitude of the location.Depending on with hemisphere user is, it calculates what is the weather on that particular location.If it is winter the screen changes styles by turning in to winter theme(including blue color and snowflakes icons) OR if it is summer,the theme changes to summer(including orange color and sun icon).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
